@@ -56,26 +56,23 @@ class Graph {
 
     dfs(v) {
         const visited = [];
-        const path = [];
         
-        this._dfs(v, visited, path);
-        return path;
+        this._dfs(v, visited);
+        return visited;
     }
 
-    _dfs(v, visited, path) {
+    _dfs(v, visited) {
         visited.push(v);
-        path.push(v);
         const e = this.edges.get(v);
         for(let i=0; i<e.length; i++) {
             if(!~visited.indexOf(e[i])) {
-                this._dfs(e[i], visited, path);
+                this._dfs(e[i], visited);
             }
         }
     }
 
     bfs(v) {
         const visited = [];
-        const path = [];
         const queue = [];
 
         queue.push(v);
@@ -83,8 +80,6 @@ class Graph {
 
         while(queue.length) {
             const current = queue.shift();
-            path.push(current);
-
             const e = this.edges.get(current);
 
             for(let i=0; i<e.length; i++) {
@@ -94,7 +89,7 @@ class Graph {
                 }
             }
         }
-        return path;
+        return visited;
     }
 }
 
